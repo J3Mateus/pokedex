@@ -6,11 +6,16 @@ const HomeStyle = StyleSheet.create({
         width:"100%",
         height:"100%"
     },
+    cardRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        margin:10
+    },
     header:{
         flexDirection: 'row',
         alignItems: 'center',
         height:30,
-        marginTop:100,
+        marginTop:40,
         marginBottom:30
     },
     subContainer:{

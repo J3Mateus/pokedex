@@ -11,19 +11,19 @@ const Card : React.FC<IProposCard> = ({code,name,url,style})=>{
   
     return (
         <View style={CardStyle.container}>
-            <Text></Text>
-            <View>
+            <Text style={CardStyle.labelCode}>{code}</Text>
+            
+            <View style={CardStyle.imageContainer}>
                 <Image
                     style={CardStyle.image}
                     source={{
-                                uri:"https://static.wikia.nocookie.net/pokepediabrasil/images/b/b1/025Pikachu_XY_anime_3.png/revision/latest?cb=20160625010912&path-prefix=pt-br"
+                                uri:url
                             }}
                 />
-
             </View>
 
             <View style={CardStyle.subContainer}>
-                <Text></Text>
+                <Text style={CardStyle.labelName}>{name}</Text>
             </View>
         </View>
     )

@@ -20,11 +20,14 @@ const CardStyle = StyleSheet.create(
             elevation: 10,
         },
         subContainer :{
-            backgroundColor:"#E0E0E0",
-            marginTop:"40%",
-            borderTopEndRadius:10,
-            borderTopStartRadius:10,
-            width:"100%"
+            backgroundColor:"#EFEFEF",
+            marginTop:"10%",
+            height:"40%",
+            borderTopEndRadius:5,
+            borderTopStartRadius:5,
+            width:"100%",
+            bottom:0,
+            position:"absolute"
         },
         imageContainer: {
             flex: 1,
@@ -34,11 +37,22 @@ const CardStyle = StyleSheet.create(
             marginBottom:25,
             zIndex: 10, // Adicionado o zIndex
           },
-
+        labelCode:{
+            textAlign:"right",
+            marginRight:10,
+            marginTop:5,
+        },
+        labelName :{
+            marginTop:10,
+            textAlign:"center"
+        },
         image:{
-            zIndex:30,
-            height:120,
-            width:120
+            height:80,
+            width:80,
+            marginBottom:10,
+            justifyContent:"center",
+            alignItems:"center",
+         
         }
     }
 )
