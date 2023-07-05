@@ -4,15 +4,31 @@ import HomeStyle from '../../styles/Home.style'
 import TextField from '../../components/TextField'
 import TextFieldStyle from '../../styles/TextField.style'
 import Card from '../../components/Card'
+import Props from '../Props/Props'
 import TextButton from '../../components/TextButton'
 import Loading from '../../components/Loading'
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const Home = ()=>{
+interface Props {
+  navigation: any; // Add type for navigation prop
+}
 
+const Home = ({navigation} : Props )=>{
+
+    const {Navigator,Screen } = createNativeStackNavigator()
     interface Pokemon {
         code : string,
         name : string,
-        url : string 
+        url : string,
+        type : Array<string>
+    }
+
+    interface Type {
+      name : string 
+    }
+    interface Types {
+      slot :number ,
+      type : Type
     }
 
     const [listPokemon,setListPokemon] = useState<Array<Pokemon>>([])
@@ -20,7 +36,7 @@ const Home = ()=>{
     useEffect(()=>{
         const fetchPokemonSprites = async () => {
             try {
-              const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=50&offset=0');
+              const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=10&offset=0');
               const data = await response.json();
           
               const pokemonList = data.results;
@@ -30,11 +46,19 @@ const Home = ()=>{
                 id_pokemon++
                 const pokemonResponse = await fetch(pokemon.url);
                 const pokemonData = await pokemonResponse.json();
+                const type : Array<string> = pokemonData.types.map((value : Types)=>{
+                  const newArray : Array<string> = [] 
+                  
+                  newArray.push(value.type.name)
+                  return newArray
+                  })
+
                 const name = pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1);
                 const pokemonCard : Pokemon = {
                   code:`#${id_pokemon}`,
                   name:name,
                   url: pokemonData.sprites.other['official-artwork'].front_default,
+                  type : type
                 }
       
                 newPokemon.push(pokemonCard)
@@ -51,16 +75,19 @@ const Home = ()=>{
     },[])
 
 
+    const navigate = ()=>{
+      navigation.navigate('Detalhes')
+    }
     const renderCardRows = ( pokemon : Array<Pokemon>) => {
 
         const cardRows: Array<JSX.Element> = [];
         let currentRow: Array<JSX.Element> = [];
     
         for (let i = 0; i < pokemon.length; i++) {
-          const { code, name, url } = pokemon[i];
+          const { code, name, url,type } = pokemon[i];
      
     
-          currentRow.push(<Card key={i} code={code} name={name} url={url} />);
+          currentRow.push(<Card  onPress={()=>{navigate()}}  key={i} code={code} name={name} url={url} />);
     
           if ((i + 1) % 3 === 0 || i === pokemon.length - 1) {
             cardRows.push(
